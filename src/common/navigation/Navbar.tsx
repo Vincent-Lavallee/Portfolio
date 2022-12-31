@@ -21,6 +21,7 @@ const Navbar = ({}: NavbarProps) => {
       <Box>
         {links.map((link) => (
           <Button
+            key={link.label}
             sx={{
               m: "10px",
               fontSize: "20px",

@@ -15,8 +15,9 @@ const ContactPageContent = () => {
       <StyledContactFormContainer>
         <StyledContactFormHeader>Contact me</StyledContactFormHeader>
         <StyledContactFormSubTitle>
-          Feel free to reach out to me if you have any questions. I'm always
-          happy to help! You can also reach me at vincent-lavallee@live.com
+          Feel free to reach out to me if you have any questions. I&apos;m
+          always happy to help! You can also reach me at
+          vincent-lavallee@live.com
         </StyledContactFormSubTitle>
         <StyledContactForm>
           <Box
