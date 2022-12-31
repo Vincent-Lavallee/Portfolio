@@ -4,8 +4,9 @@ import Head from "next/head";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../src/common/theme";
 import Navbar from "../src/common/navigation/Navbar";
+import NoSsr from "@mui/material/NoSsr";
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
@@ -21,9 +22,11 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <Navbar />
-        <Component {...pageProps} />
+        <NoSsr>
+          <Navbar />
+          <Component {...pageProps} />
+        </NoSsr>
       </ThemeProvider>
     </>
   );
-}
+};
