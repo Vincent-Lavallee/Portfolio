@@ -22,10 +22,8 @@ const App = ({ Component, pageProps }: AppProps) => {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <NoSsr>
-          <Navbar />
-          <Component {...pageProps} />
-        </NoSsr>
+        <Navbar />
+        {typeof window !== `undefined` && <Component {...pageProps} />}
       </ThemeProvider>
     </>
   );
