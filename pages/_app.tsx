@@ -21,10 +21,12 @@ const App = ({ Component, pageProps }: AppProps) => {
           rel="stylesheet"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <Navbar />
-        {typeof window !== `undefined` && <Component {...pageProps} />}
-      </ThemeProvider>
+      {typeof window !== `undefined` && (
+        <ThemeProvider theme={theme}>
+          <Navbar />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      )}
     </>
   );
 };
