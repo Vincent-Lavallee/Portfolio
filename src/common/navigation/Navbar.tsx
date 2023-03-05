@@ -7,6 +7,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import HamburgerIcon from "./HamburgerIcon";
 import MobileNavDrawer from "./MobileNavDrawer";
 import { useState } from "react";
+import LanguageSelector from "./LanguageSelector";
 
 interface NavbarProps {}
 const Navbar = ({}: NavbarProps) => {
@@ -91,7 +92,18 @@ const Navbar = ({}: NavbarProps) => {
             }
           />
         </Box>
-        <Box />
+        {!switchToHamburgerMenu && (
+          <Box
+            sx={{
+              position: "absolute",
+              right: "30px",
+              width: "100px",
+            }}
+          >
+            {" "}
+            <LanguageSelector />
+          </Box>
+        )}
       </Box>
       <MobileNavDrawer mobileDrawerState={mobileDrawerState} />
     </>

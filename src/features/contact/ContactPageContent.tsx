@@ -14,7 +14,6 @@ import {
   StyledContactFormHeader,
   StyledContactFormSubTitle,
   StyledContactForm,
-  StyledContactWave,
   StyledEmailLink,
 } from "./ContactPageContent.styled";
 import { object, string } from "yup";
@@ -61,9 +60,13 @@ const ContactPageContent = () => {
   });
 
   return (
-    <StyledContactPageContainer>
-      <StyledContactFormContainer>
-        <StyledContactFormHeader>Contact me</StyledContactFormHeader>
+    <StyledContactPageContainer
+      sx={{ "&:after": isMobile ? { content: '""' } : {} }}
+    >
+      <StyledContactFormContainer sx={{ ml: isMobile ? "50px" : "100px" }}>
+        <StyledContactFormHeader sx={{ fontSize: isMobile ? "45px" : "?" }}>
+          Contact me
+        </StyledContactFormHeader>
         <StyledContactFormSubTitle sx={{ width: isMobile ? "90%" : "30%" }}>
           Feel free to reach out to me if you have any questions. I&apos;m
           always happy to help! You can also reach me at
@@ -76,9 +79,10 @@ const ContactPageContent = () => {
           <Box
             sx={{
               display: "flex",
-              gap: "50px",
+              gap: isMobile ? "20px" : "50px",
               pt: "10px",
-              width: isMobile ? "75%" : "33%",
+
+              width: isMobile ? "90%" : "33%",
             }}
           >
             <StyledContactTextField
@@ -104,7 +108,7 @@ const ContactPageContent = () => {
               mt: "20px",
               display: "flex",
               flexDirection: "column",
-              width: isMobile ? "75%" : "33%",
+              width: isMobile ? "90%" : "33%",
               gap: "20px",
             }}
           >
@@ -151,7 +155,6 @@ const ContactPageContent = () => {
           </Box>
         </StyledContactForm>
       </StyledContactFormContainer>
-      <StyledContactWave />
     </StyledContactPageContainer>
   );
 };

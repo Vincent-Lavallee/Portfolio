@@ -5,6 +5,7 @@ import { keyframes } from "@emotion/react";
 import { TagCloud } from "@frank-mayer/react-tag-cloud";
 import theme from "../../common/theme";
 import { useMediaQuery } from "@mui/material";
+import { Theme } from "@mui/material/styles";
 
 const blinkingCursor = keyframes`
   0% {
@@ -38,7 +39,9 @@ const cloudTags = [
 
 const HomePageContent = () => {
   const typeWriterRef = useRef<HTMLDivElement>(null);
-  const isMobile = useMediaQuery("(max-width:1000px)");
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  );
 
   let typeWriter: Typewriter;
 
@@ -59,11 +62,16 @@ const HomePageContent = () => {
         .start();
     }
   }, []);
+  // TODO mobile layout
 
   return (
     <Box
       sx={{
-        height: isMobile ? "?" : "calc(100vh - 100px)",
+        backgroundSize: "auto",
+        backgroundImage: "url('/homeWave.svg')",
+        backgroundPosition: "bottom",
+        backgroundPositionY: isMobile ? "1100px" : "",
+        height: isMobile ? "900px" : "calc(100vh - 100px)",
         position: isMobile ? "?" : "relative",
         overflowY: isMobile ? "?" : "hidden",
         overflowX: "hidden",
@@ -75,8 +83,9 @@ const HomePageContent = () => {
           display: "flex",
           justifyContent: "space-evenly",
           width: "100%",
-          alignItems: "center",
-          mt: isMobile ? "100px" : "0px",
+          pl: isMobile ? "7vw" : "0px",
+          alignItems: isMobile ? "right" : "center",
+          mt: isMobile ? "75px" : "0px",
           height: isMobile ? "100vh" : "80%",
           flexDirection: isMobile ? "column" : "row",
         }}
@@ -84,6 +93,7 @@ const HomePageContent = () => {
         <Box
           sx={{
             width: "40%",
+            transform: isMobile ? "" : "translateY(-50px)",
             "&:before": {
               content: '"<h1>"',
               fontFamily: "'La Belle Aurore', cursive",
@@ -99,16 +109,19 @@ const HomePageContent = () => {
           <Box
             ref={typeWriterRef}
             sx={{
-              whiteSpace: "pre-wrap",
+              height: isMobile ? "105px" : "",
+              whiteSpace: "pre",
+              position: "relative",
+              width: "fit-content",
               "&:after": {
                 content: '""',
                 backgroundColor: theme.palette.primary.main,
                 width: "5px",
-                height: "55px",
+                height: isMobile ? "30px" : "55px",
                 display: "inline-block",
                 animation: `${blinkingCursor} 0.5s steps(2) infinite`,
               },
-              fontSize: "50px",
+              fontSize: isMobile ? "28px" : "50px",
               fontWeight: "bold",
             }}
           />
@@ -119,6 +132,7 @@ const HomePageContent = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            transform: isMobile ? "translateX(-22px)" : "translateX(-50px)",
           }}
         >
           <TagCloud
@@ -139,20 +153,6 @@ const HomePageContent = () => {
           </TagCloud>
         </Box>
       </Box>
-
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: isMobile ? "-200px" : "-100px",
-          zIndex: "-1",
-          aspectRatio: "16/9",
-          width: "100vw",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundImage: "url('/homeWave.svg')",
-        }}
-      />
     </Box>
   );
 };

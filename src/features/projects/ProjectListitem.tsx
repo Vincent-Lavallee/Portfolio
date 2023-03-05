@@ -19,32 +19,47 @@ import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CodeIcon from "@mui/icons-material/Code";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { Theme } from "@mui/material/styles";
 interface ProjectListitemProps {
   project: ProjectModel;
-  isLeft: boolean;
 }
 
-const ProjectListitem = ({ project, isLeft }: ProjectListitemProps) => {
+const ProjectListitem = ({ project }: ProjectListitemProps) => {
   const [expanded, setExpanded] = useState(false);
+
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  );
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
-    <TimelineItem>
+    <TimelineItem
+      sx={{
+        "::before": {
+          display: isMobile ? "none" : "block",
+        },
+      }}
+    >
       <TimelineSeparator>
-        <TimelineDot color="primary" />
-        <TimelineConnector
-          sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
-          color="primary"
-        />
+        {!isMobile && (
+          <>
+            <TimelineDot color="primary" />
+            <TimelineConnector
+              sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
+              color="primary"
+            />
+          </>
+        )}
       </TimelineSeparator>
       <TimelineContent>
-        <Box sx={{ ml: "200px" }}>
+        <Box sx={{ ml: isMobile ? "0px" : "200px" }}>
           <Card
             sx={{
-              width: 500,
+              width: isMobile ? 300 : 500,
             }}
           >
             <CardHeader

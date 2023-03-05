@@ -31,24 +31,29 @@ export const StyledContactTextField = styled(TextField)(({ theme }) => ({
 }));
 
 export const StyledContactPageContainer = styled(Box)(() => ({
+  backgroundImage: "url('/contactWaves.svg')",
+  backgroundSize: "cover",
+  paddingTop: "80px",
+  height: "calc(100vh - 80px)",
+  overflowX: "hidden",
+  position: "relative",
   "&:before": {
-    position: "relative",
+    position: "absolute",
     top: "80px",
     content: '"<body>"',
-    marginLeft: "20px",
+    left: "20px",
     ...styledHtmlTagProperties,
   },
   "&:after": {
     content: '"/<body>"',
     bottom: "10px",
-    marginLeft: "30px",
+    left: "20px",
     position: "absolute",
     ...styledHtmlTagProperties,
   },
 }));
 
 export const StyledContactFormContainer = styled(Box)(({ theme }) => ({
-  paddingLeft: "100px",
   marginTop: "125px",
   display: "flex",
   flexDirection: "column",
@@ -60,6 +65,7 @@ export const StyledContactFormHeader = styled(Box)(({ theme }) => ({
   color: theme.palette.primary.main,
   fontSize: "50px",
   fontWeight: "bold",
+  position: "relative",
   "&:before": {
     fontSize: "14px",
     content: '"<h1>"',
@@ -71,8 +77,8 @@ export const StyledContactFormHeader = styled(Box)(({ theme }) => ({
     fontSize: "14px",
     content: '"</h1>"',
     position: "absolute",
-    marginTop: "50px",
-    marginLeft: "-337px",
+    bottom: "-20px",
+    left: "-32px",
     ...styledHtmlTagProperties,
   },
 }));
@@ -81,6 +87,7 @@ export const StyledContactFormSubTitle = styled(Typography)(({ theme }) => ({
   animation: `${fadeInAnimaion} 1s`,
   color: theme.palette.text.primary,
   position: "relative",
+  textAlign: "justify",
   width: "33%",
   "&:before": {
     fontSize: "14px",
@@ -103,33 +110,21 @@ export const StyledContactFormSubTitle = styled(Typography)(({ theme }) => ({
 export const StyledContactForm = styled(Box)(({ theme }) => ({
   animation: `${fadeInAnimaion} 1.2s`,
   marginTop: "20px",
+  position: "relative",
   "&:before": {
     fontSize: "14px",
     content: '"<form>"',
     position: "absolute",
-    marginLeft: "-30px",
-    marginTop: "-25px",
+    top: "-30px",
+    left: "-30px",
     ...styledHtmlTagProperties,
   },
   "&:after": {
     fontSize: "14px",
     content: '"</form>"',
     position: "absolute",
-    marginLeft: "-30px",
-    marginTop: "15px",
+    bottom: "0px",
+    left: "-35px",
     ...styledHtmlTagProperties,
   },
-}));
-
-export const StyledContactWave = styled(Box)(({ theme }) => ({
-  position: "absolute",
-  top: "0px",
-  zIndex: -1,
-  aspectRatio: "16/9",
-  width: "100vw",
-  height: "100%",
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "center",
-  backgroundSize: "cover",
-  backgroundImage: "url('/contactWaves.svg')",
 }));
