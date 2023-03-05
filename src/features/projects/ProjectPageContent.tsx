@@ -4,6 +4,7 @@ import ProjectListitem from "./ProjectListitem";
 
 import Timeline from "@mui/lab/Timeline";
 import { useMediaQuery } from "@mui/material";
+import { Theme } from "@mui/material/styles";
 
 interface ProjectPageContentProps {}
 
