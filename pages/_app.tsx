@@ -6,7 +6,7 @@ import theme from "../src/common/theme";
 import Navbar from "../src/common/navigation/Navbar";
 import NextNProgress from "nextjs-progressbar";
 import { Box } from "@mui/system";
-
+import { Analytics } from "@vercel/analytics/react";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -26,6 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Navbar />
         <NextNProgress height={1} color={theme.palette.primary.main} />
         <Component {...pageProps} />
+        <Analytics />
       </ThemeProvider>
     </>
   );
