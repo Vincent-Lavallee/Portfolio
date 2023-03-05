@@ -1,4 +1,12 @@
+import { Alert, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
+import Collapse from "@mui/material/Collapse/Collapse";
+import { Theme } from "@mui/material/styles";
+import { useFormik } from "formik";
+import { useState } from "react";
+import SendEmailModel from "../../Models/SendEmail";
 import {
   StyledContactPageContainer,
   StyledContactTextField,
@@ -7,17 +15,62 @@ import {
   StyledContactFormSubTitle,
   StyledContactForm,
   StyledContactWave,
+  StyledEmailLink,
 } from "./ContactPageContent.styled";
-
+import { object, string } from "yup";
 const ContactPageContent = () => {
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  );
+
+  const [responseCode, setReponseCode] = useState<null | number>(null);
+
+  const {
+    isSubmitting,
+    isValid,
+    values,
+    handleChange,
+    handleSubmit,
+    setSubmitting,
+  } = useFormik<SendEmailModel>({
+    initialValues: {
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    },
+    validationSchema: object({
+      subject: string().required("Subject is required"),
+      message: string().required("Message is required"),
+    }),
+    isInitialValid: false,
+    onSubmit: (values) => {
+      fetch("/api/email", {
+        method: "POST",
+        body: JSON.stringify(values),
+      }).then((res) => {
+        setReponseCode(res.status);
+        setSubmitting(false);
+        setTimeout(() =>
+          setTimeout(() => {
+            setReponseCode(null);
+          }, 5000)
+        );
+      });
+    },
+  });
+
   return (
     <StyledContactPageContainer>
       <StyledContactFormContainer>
         <StyledContactFormHeader>Contact me</StyledContactFormHeader>
-        <StyledContactFormSubTitle>
+        <StyledContactFormSubTitle sx={{ width: isMobile ? "90%" : "30%" }}>
           Feel free to reach out to me if you have any questions. I&apos;m
           always happy to help! You can also reach me at
-          vincent-lavallee@live.com
+          <StyledEmailLink href="mailto:vincent-lavallee@live.com">
+            {" "}
+            vincent-lavallee@live.com
+          </StyledEmailLink>
         </StyledContactFormSubTitle>
         <StyledContactForm>
           <Box
@@ -25,28 +78,41 @@ const ContactPageContent = () => {
               display: "flex",
               gap: "50px",
               pt: "10px",
+              width: isMobile ? "75%" : "33%",
             }}
           >
             <StyledContactTextField
               label="Name"
-              sx={{ width: "15%" }}
+              name="name"
+              value={values.name}
+              onChange={handleChange}
+              sx={{ width: "50%" }}
               InputLabelProps={{
                 sx: { color: (theme) => theme.palette.text.secondary },
               }}
             />
-            <StyledContactTextField label="Email" sx={{ width: "15%" }} />
+            <StyledContactTextField
+              label="Email"
+              name="email"
+              value={values.email}
+              onChange={handleChange}
+              sx={{ width: "50%" }}
+            />
           </Box>
           <Box
             sx={{
               mt: "20px",
               display: "flex",
               flexDirection: "column",
-              width: "33%",
+              width: isMobile ? "75%" : "33%",
               gap: "20px",
             }}
           >
             <StyledContactTextField
               label="Subject"
+              name="subject"
+              onChange={handleChange}
+              value={values.subject}
               InputLabelProps={{
                 sx: { color: (theme) => theme.palette.text.secondary },
               }}
@@ -54,12 +120,34 @@ const ContactPageContent = () => {
 
             <StyledContactTextField
               label="Message"
+              name="message"
+              onChange={handleChange}
+              value={values.message}
               multiline
               autoComplete="off"
               InputLabelProps={{
                 sx: { color: (theme) => theme.palette.text.secondary },
               }}
             />
+            <Collapse in={isValid}>
+              <Button
+                sx={{ width: "100%" }}
+                onClick={() => handleSubmit()}
+                disabled={isSubmitting}
+                variant={isSubmitting ? "text" : "contained"}
+              >
+                {isSubmitting ? <CircularProgress color="primary" /> : "Submit"}
+              </Button>
+            </Collapse>
+            <Collapse in={!!responseCode}>
+              {responseCode && (
+                <Alert severity={responseCode === 200 ? "info" : "error"}>
+                  {responseCode === 200
+                    ? "Email sent successfully"
+                    : "Email couldn't be sent, please try again later"}
+                </Alert>
+              )}
+            </Collapse>
           </Box>
         </StyledContactForm>
       </StyledContactFormContainer>

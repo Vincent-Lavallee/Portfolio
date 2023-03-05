@@ -4,6 +4,8 @@ import Head from "next/head";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../src/common/theme";
 import Navbar from "../src/common/navigation/Navbar";
+import NextNProgress from "nextjs-progressbar";
+import { Box } from "@mui/system";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -22,6 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <Navbar />
+        <NextNProgress height={1} color={theme.palette.primary.main} />
         <Component {...pageProps} />
       </ThemeProvider>
     </>

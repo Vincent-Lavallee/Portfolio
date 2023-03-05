@@ -5,6 +5,7 @@ const theme = createTheme({
     primary: {
       main: "#008e9a",
       light: "#acdcde",
+      dark: "#064147",
     },
     text: {
       primary: "#dcdcd4",

@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import { keyframes } from "@emotion/react";
 import { TagCloud } from "@frank-mayer/react-tag-cloud";
 import theme from "../../common/theme";
+import { useMediaQuery } from "@mui/material";
 
 const blinkingCursor = keyframes`
   0% {
@@ -37,6 +38,8 @@ const cloudTags = [
 
 const HomePageContent = () => {
   const typeWriterRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMediaQuery("(max-width:1000px)");
+
   let typeWriter: Typewriter;
 
   useEffect(() => {
@@ -60,25 +63,36 @@ const HomePageContent = () => {
   return (
     <Box
       sx={{
-        overflowY: "hidden",
-        height: "calc(100vh - 80px)",
-        position: "relative",
+        height: isMobile ? "?" : "calc(100vh - 100px)",
+        position: isMobile ? "?" : "relative",
+        overflowY: isMobile ? "?" : "hidden",
+        overflowX: "hidden",
+        pt: isMobile ? "0px" : "100px",
       }}
     >
-      <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          width: "100%",
+          alignItems: "center",
+          mt: isMobile ? "100px" : "0px",
+          height: isMobile ? "100vh" : "80%",
+          flexDirection: isMobile ? "column" : "row",
+        }}
+      >
         <Box
           sx={{
-            ml: "15vw",
-            mt: "200px",
+            width: "40%",
             "&:before": {
               content: '"<h1>"',
               fontFamily: "'La Belle Aurore', cursive",
             },
             "&:after": {
-              position: "absolute",
+              display: "inline",
+              right: "0px",
               content: '"</h1>"',
               fontFamily: "'La Belle Aurore', cursive",
-              marginLeft: "30rem",
             },
           }}
         >
@@ -100,18 +114,26 @@ const HomePageContent = () => {
           />
         </Box>
 
-        <Box sx={{ m: "100px 0px 0px 100px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <TagCloud
             style={{ color: theme.palette.primary.main, fontWeight: "bold" }}
-            options={(w: Window & typeof globalThis) => ({
-              radius: Math.min(600, w.innerWidth, w.innerHeight) / 2,
-              maxSpeed: "fast",
-              initSpeed: "fast",
-              direction: 135,
-              keep: false,
-            })}
-            onClick={(tag: string, ev: MouseEvent) => alert(tag)}
-            onClickOptions={{ passive: true }}
+            options={(w: Window & typeof globalThis) => {
+              return {
+                radius:
+                  Math.min(isMobile ? 400 : 600, w.innerWidth, w.innerHeight) /
+                  2,
+                maxSpeed: "fast",
+                initSpeed: "fast",
+                direction: 135,
+                keep: false,
+              };
+            }}
           >
             {cloudTags}
           </TagCloud>
@@ -121,10 +143,10 @@ const HomePageContent = () => {
       <Box
         sx={{
           position: "absolute",
-          top: "0px",
+          bottom: isMobile ? "-200px" : "-100px",
           zIndex: "-1",
           aspectRatio: "16/9",
-          width: "100%",
+          width: "100vw",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",

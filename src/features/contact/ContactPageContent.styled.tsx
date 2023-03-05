@@ -19,15 +19,23 @@ const styledHtmlTagProperties = {
   fontWeight: "bold",
 };
 
+export const StyledEmailLink = styled("a")(({ theme }) => ({
+  color: theme.palette.primary.main,
+  cursor: "pointer",
+  textDecoration: "none",
+}));
+
 export const StyledContactTextField = styled(TextField)(({ theme }) => ({
-  animation: `${fadeInAnimaion} 1.5s`,
+  animation: `${fadeInAnimaion} 1.2s`,
   backgroundColor: theme.palette.background.default,
 }));
 
 export const StyledContactPageContainer = styled(Box)(() => ({
   "&:before": {
+    position: "relative",
+    top: "80px",
     content: '"<body>"',
-    marginLeft: "30px",
+    marginLeft: "20px",
     ...styledHtmlTagProperties,
   },
   "&:after": {
@@ -40,7 +48,7 @@ export const StyledContactPageContainer = styled(Box)(() => ({
 }));
 
 export const StyledContactFormContainer = styled(Box)(({ theme }) => ({
-  paddingLeft: "5vw",
+  paddingLeft: "100px",
   marginTop: "125px",
   display: "flex",
   flexDirection: "column",
@@ -72,6 +80,7 @@ export const StyledContactFormHeader = styled(Box)(({ theme }) => ({
 export const StyledContactFormSubTitle = styled(Typography)(({ theme }) => ({
   animation: `${fadeInAnimaion} 1s`,
   color: theme.palette.text.primary,
+  position: "relative",
   width: "33%",
   "&:before": {
     fontSize: "14px",
@@ -85,14 +94,14 @@ export const StyledContactFormSubTitle = styled(Typography)(({ theme }) => ({
     fontSize: "14px",
     content: '"</p>"',
     position: "absolute",
-    marginTop: "25px",
-    marginLeft: "-450px",
+    bottom: "-20px",
+    left: "-35px",
     ...styledHtmlTagProperties,
   },
 }));
 
 export const StyledContactForm = styled(Box)(({ theme }) => ({
-  animation: `${fadeInAnimaion} 1.5s`,
+  animation: `${fadeInAnimaion} 1.2s`,
   marginTop: "20px",
   "&:before": {
     fontSize: "14px",
@@ -114,10 +123,11 @@ export const StyledContactForm = styled(Box)(({ theme }) => ({
 
 export const StyledContactWave = styled(Box)(({ theme }) => ({
   position: "absolute",
-  top: "-80px",
+  top: "0px",
   zIndex: -1,
   aspectRatio: "16/9",
-  width: "100%",
+  width: "100vw",
+  height: "100%",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
   backgroundSize: "cover",
