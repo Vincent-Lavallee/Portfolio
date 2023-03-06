@@ -56,8 +56,8 @@ const HomePageContent = () => {
       typeWriter
         .typeString("Hi,\nI'm Vincent, \nReact Enthusiast!")
         .deleteChars(17)
-        .typeString("Cloud practionner!")
-        .deleteChars(18)
+        .typeString("Cloud practitioner!")
+        .deleteChars(19)
         .typeString("FullStack Developer!")
         .start();
     }
