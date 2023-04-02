@@ -51,6 +51,12 @@ export default class Typewriter {
     return this.pauseFor(500);
   }
 
+  reset = () => {
+    this.#parent.innerText = "";
+    this.#queue = [];
+    return this;
+  };
+
   deleteAll(deleteSpeed = this.#deletingSpeed) {
     this.#addToQueue((resolve) => {
       const interval = setInterval(() => {

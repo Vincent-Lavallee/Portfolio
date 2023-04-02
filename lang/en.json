@@ -1,0 +1,15 @@
+{
+  "navbar.home": "Home",
+  "navbar.projects": "Projects",
+  "navbar.contact": "Contact",
+  "contact.form.header": "Contact me",
+  "contact.form.subtitle": "Feel free to reach out to me if you have any questions. I'm always happy to help! You can also reach me at",
+  "contact.form.name": "Name",
+  "contact.form.email": "Email",
+  "contact.form.subject": "Subject",
+  "contact.form.message": "Message",
+  "home.typewriter.initialprompt": "Hi,\nI'm Vincent",
+  "home.typewriter.firstprompt": "\nReact Enthusiast!",
+  "home.typewriter.secondprompt": "\nCloud practitioner!",
+  "home.typewriter.thirdprompt": "\nFullStack Developer!"
+}

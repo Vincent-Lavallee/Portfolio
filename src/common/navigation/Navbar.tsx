@@ -1,6 +1,5 @@
 import { Box, Button } from "@mui/material";
 import { useRouter } from "next/router";
-import links from "./links";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -8,14 +7,14 @@ import HamburgerIcon from "./HamburgerIcon";
 import MobileNavDrawer from "./MobileNavDrawer";
 import { useState } from "react";
 import LanguageSelector from "./LanguageSelector";
-
+import useLinks from "./useLinks";
 interface NavbarProps {}
 const Navbar = ({}: NavbarProps) => {
   const router = useRouter();
-
   const switchToHamburgerMenu = useMediaQuery("(max-width:920px)");
-
   const mobileDrawerState = useState(false);
+
+  const links = useLinks();
 
   return (
     <>
@@ -100,7 +99,6 @@ const Navbar = ({}: NavbarProps) => {
               width: "100px",
             }}
           >
-            {" "}
             <LanguageSelector />
           </Box>
         )}

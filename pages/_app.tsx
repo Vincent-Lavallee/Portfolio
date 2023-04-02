@@ -5,9 +5,20 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "../src/common/theme";
 import Navbar from "../src/common/navigation/Navbar";
 import NextNProgress from "nextjs-progressbar";
-import { Box } from "@mui/system";
 import { Analytics } from "@vercel/analytics/react";
+import { IntlProvider } from "react-intl";
+import { createContext, useState } from "react";
+import SupportedLanguage from "../lang/supportedLanguage";
+
+export const LocalizationContext = createContext({
+  selectedLanguage: SupportedLanguage.EN,
+  setSelectedLanguage: (value: SupportedLanguage) => {},
+});
 export default function App({ Component, pageProps }: AppProps) {
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    SupportedLanguage.EN
+  );
+
   return (
     <>
       <Head>
@@ -22,12 +33,22 @@ export default function App({ Component, pageProps }: AppProps) {
           rel="stylesheet"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <Navbar />
-        <NextNProgress height={1} color={theme.palette.primary.main} />
-        <Component {...pageProps} />
-        <Analytics />
-      </ThemeProvider>
+      <LocalizationContext.Provider
+        value={{ setSelectedLanguage, selectedLanguage }}
+      >
+        <IntlProvider
+          messages={require(`../lang/${selectedLanguage}.json`)}
+          locale="fr"
+          defaultLocale={selectedLanguage}
+        >
+          <ThemeProvider theme={theme}>
+            <Navbar />
+            <NextNProgress height={1} color={theme.palette.primary.main} />
+            <Component {...pageProps} />
+            <Analytics />
+          </ThemeProvider>
+        </IntlProvider>
+      </LocalizationContext.Provider>
     </>
   );
 }

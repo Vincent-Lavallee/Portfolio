@@ -1,0 +1,15 @@
+{
+  "navbar.home": "Acceuil",
+  "navbar.projects": "Projets",
+  "navbar.contact": "Contact",
+  "contact.form.header": "Contactez-moi",
+  "contact.form.subtitle": "N'hésitez pas à me contacter si vous avez des questions. Je suis toujours en disposition d'aider! Vous pouvez également me joindre par courriel à l'adresse suivante: ",
+  "contact.form.name": "Nom",
+  "contact.form.email": "Courriel",
+  "contact.form.subject": "Sujet",
+  "contact.form.message": "Message",
+  "home.typewriter.initialprompt": "Salut,\nJe suis Vincent",
+  "home.typewriter.firstprompt": "\nEnthousiaste React!",
+  "home.typewriter.secondprompt": "\nCloud practitioner!",
+  "home.typewriter.thirdprompt": "\nFullStack Developer!"
+}

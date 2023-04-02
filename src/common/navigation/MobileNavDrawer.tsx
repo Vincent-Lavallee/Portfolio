@@ -1,6 +1,6 @@
 import Drawer from "@mui/material/Drawer";
 import { SetStateAction, Dispatch } from "react";
-import links from "./links";
+import useLinks from "./useLinks";
 import { Box, Button } from "@mui/material";
 import { useRouter } from "next/router";
 import LanguageSelector from "./LanguageSelector";
@@ -11,6 +11,8 @@ const MobileNavDrawer = ({
   mobileDrawerState: [isMobileDrawerOpen, setIsMobileDrawerOpen],
 }: MobileNavDrawerProps) => {
   const router = useRouter();
+
+  const links = useLinks();
 
   return (
     <Drawer

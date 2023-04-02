@@ -16,11 +16,15 @@ import {
   StyledContactForm,
   StyledEmailLink,
 } from "./ContactPageContent.styled";
+import { useIntl } from "react-intl";
+
 import { object, string } from "yup";
 const ContactPageContent = () => {
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("sm")
   );
+
+  const { formatMessage } = useIntl();
 
   const [responseCode, setReponseCode] = useState<null | number>(null);
 
@@ -65,11 +69,10 @@ const ContactPageContent = () => {
     >
       <StyledContactFormContainer sx={{ ml: isMobile ? "50px" : "100px" }}>
         <StyledContactFormHeader sx={{ fontSize: isMobile ? "45px" : "?" }}>
-          Contact me
+          {formatMessage({ id: "contact.form.header" })}
         </StyledContactFormHeader>
         <StyledContactFormSubTitle sx={{ width: isMobile ? "90%" : "30%" }}>
-          Feel free to reach out to me if you have any questions. I&apos;m
-          always happy to help! You can also reach me at
+          {formatMessage({ id: "contact.form.subtitle" })}
           <StyledEmailLink href="mailto:vincent-lavallee@live.com">
             {" "}
             vincent-lavallee@live.com
@@ -86,7 +89,7 @@ const ContactPageContent = () => {
             }}
           >
             <StyledContactTextField
-              label="Name"
+              label={formatMessage({ id: "contact.form.name" })}
               name="name"
               value={values.name}
               onChange={handleChange}
@@ -96,7 +99,7 @@ const ContactPageContent = () => {
               }}
             />
             <StyledContactTextField
-              label="Email"
+              label={formatMessage({ id: "contact.form.email" })}
               name="email"
               value={values.email}
               onChange={handleChange}
@@ -113,7 +116,7 @@ const ContactPageContent = () => {
             }}
           >
             <StyledContactTextField
-              label="Subject"
+              label={formatMessage({ id: "contact.form.subject" })}
               name="subject"
               onChange={handleChange}
               value={values.subject}
@@ -123,7 +126,7 @@ const ContactPageContent = () => {
             />
 
             <StyledContactTextField
-              label="Message"
+              label={formatMessage({ id: "contact.form.message" })}
               name="message"
               onChange={handleChange}
               value={values.message}
