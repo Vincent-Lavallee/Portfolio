@@ -7,8 +7,9 @@ import Navbar from "../src/common/navigation/Navbar";
 import NextNProgress from "nextjs-progressbar";
 import { Analytics } from "@vercel/analytics/react";
 import { IntlProvider } from "react-intl";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import SupportedLanguage from "../lang/supportedLanguage";
+import { useRouter } from "next/router";
 
 export const LocalizationContext = createContext({
   selectedLanguage: SupportedLanguage.EN,
@@ -18,6 +19,24 @@ export default function App({ Component, pageProps }: AppProps) {
   const [selectedLanguage, setSelectedLanguage] = useState(
     SupportedLanguage.EN
   );
+
+  const [reload, setReload] = useState(false);
+
+  const { pathname } = useRouter();
+
+  // Makes the typewriter reload on language change
+  // TODO - Find a better way to do this
+  useEffect(() => {
+    if (selectedLanguage && pathname === "/") {
+      setReload(true);
+    }
+  }, [selectedLanguage]);
+
+  useEffect(() => {
+    setTimeout(() => {}, 50);
+
+    setReload(false);
+  }, [reload]);
 
   return (
     <>
@@ -44,7 +63,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <ThemeProvider theme={theme}>
             <Navbar />
             <NextNProgress height={1} color={theme.palette.primary.main} />
-            <Component {...pageProps} />
+            {!reload && <Component {...pageProps} />}
             <Analytics />
           </ThemeProvider>
         </IntlProvider>
