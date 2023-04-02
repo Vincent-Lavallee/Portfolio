@@ -20,6 +20,18 @@ const HomePageContent = () => {
         overflowY: isMobile ? "?" : "hidden",
         overflowX: "hidden",
         pt: isMobile ? "0px" : "100px",
+        "::after": {
+          zIndex: 4,
+          content: '""',
+          height: "150px",
+          width: "2px",
+          position: "absolute",
+          left: "-1px",
+          background: (theme) =>
+            `linear-gradient(transparent, ${theme.palette.primary.main}, transparent)`,
+          top: "25%",
+          opacity: 1,
+        },
       }}
     >
       <CursorBlob />

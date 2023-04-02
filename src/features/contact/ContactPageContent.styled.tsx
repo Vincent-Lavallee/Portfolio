@@ -30,6 +30,20 @@ export const StyledContactTextField = styled(TextField)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
 }));
 
+export const StyledAccentShard = styled(Box)(({ theme }) => ({
+  "::after": {
+    content: '""',
+    zIndex: 4,
+    height: "150px",
+    width: "2px",
+    position: "absolute",
+    left: "-1px",
+    background: `linear-gradient(transparent, ${theme.palette.primary.main}, transparent)`,
+    top: "25%",
+    opacity: 1,
+  },
+}));
+
 export const StyledContactPageContainer = styled(Box)(() => ({
   backgroundImage: "url('/contactWaves.svg')",
   backgroundSize: "cover",

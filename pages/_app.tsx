@@ -24,12 +24,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const { pathname } = useRouter();
 
-  // Makes the typewriter reload on language change
   // TODO - Find a better way to do this
+  // Makes the typewriter reload on language change
   useEffect(() => {
     if (selectedLanguage && pathname === "/") {
       setReload(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedLanguage]);
 
   useEffect(() => {
@@ -47,10 +48,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat&family=La+Belle+Aurore&display=swap"
-          rel="stylesheet"
-        />
       </Head>
       <LocalizationContext.Provider
         value={{ setSelectedLanguage, selectedLanguage }}

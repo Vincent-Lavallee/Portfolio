@@ -15,6 +15,7 @@ import {
   StyledContactFormSubTitle,
   StyledContactForm,
   StyledEmailLink,
+  StyledAccentShard,
 } from "./ContactPageContent.styled";
 import { useIntl } from "react-intl";
 
@@ -64,101 +65,111 @@ const ContactPageContent = () => {
   });
 
   return (
-    <StyledContactPageContainer
-      sx={{ "&:after": isMobile ? { content: '""' } : {} }}
-    >
-      <StyledContactFormContainer sx={{ ml: isMobile ? "50px" : "100px" }}>
-        <StyledContactFormHeader sx={{ fontSize: isMobile ? "45px" : "?" }}>
-          {formatMessage({ id: "contact.form.header" })}
-        </StyledContactFormHeader>
-        <StyledContactFormSubTitle sx={{ width: isMobile ? "90%" : "30%" }}>
-          {formatMessage({ id: "contact.form.subtitle" })}
-          <StyledEmailLink href="mailto:vincent-lavallee@live.com">
-            {" "}
-            vincent-lavallee@live.com
-          </StyledEmailLink>
-        </StyledContactFormSubTitle>
-        <StyledContactForm>
-          <Box
-            sx={{
-              display: "flex",
-              gap: isMobile ? "20px" : "50px",
-              pt: "10px",
+    <StyledAccentShard>
+      <StyledContactPageContainer
+        sx={{
+          "::after": {
+            content: !isMobile ? '""' : "unset",
+          },
+        }}
+      >
+        <StyledContactFormContainer sx={{ ml: isMobile ? "50px" : "100px" }}>
+          <StyledContactFormHeader sx={{ fontSize: isMobile ? "45px" : "?" }}>
+            {formatMessage({ id: "contact.form.header" })}
+          </StyledContactFormHeader>
+          <StyledContactFormSubTitle sx={{ width: isMobile ? "90%" : "30%" }}>
+            {formatMessage({ id: "contact.form.subtitle" })}
+            <StyledEmailLink href="mailto:vincent-lavallee@live.com">
+              {" "}
+              vincent-lavallee@live.com
+            </StyledEmailLink>
+          </StyledContactFormSubTitle>
+          <StyledContactForm>
+            <Box
+              sx={{
+                display: "flex",
+                gap: isMobile ? "20px" : "50px",
+                pt: "10px",
 
-              width: isMobile ? "90%" : "33%",
-            }}
-          >
-            <StyledContactTextField
-              label={formatMessage({ id: "contact.form.name" })}
-              name="name"
-              value={values.name}
-              onChange={handleChange}
-              sx={{ width: "50%" }}
-              InputLabelProps={{
-                sx: { color: (theme) => theme.palette.text.secondary },
+                width: isMobile ? "90%" : "33%",
               }}
-            />
-            <StyledContactTextField
-              label={formatMessage({ id: "contact.form.email" })}
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-              sx={{ width: "50%" }}
-            />
-          </Box>
-          <Box
-            sx={{
-              mt: "20px",
-              display: "flex",
-              flexDirection: "column",
-              width: isMobile ? "90%" : "33%",
-              gap: "20px",
-            }}
-          >
-            <StyledContactTextField
-              label={formatMessage({ id: "contact.form.subject" })}
-              name="subject"
-              onChange={handleChange}
-              value={values.subject}
-              InputLabelProps={{
-                sx: { color: (theme) => theme.palette.text.secondary },
+            >
+              <StyledContactTextField
+                label={formatMessage({ id: "contact.form.name" })}
+                name="name"
+                value={values.name}
+                onChange={handleChange}
+                sx={{ width: "50%" }}
+                InputLabelProps={{
+                  sx: { color: (theme) => theme.palette.text.secondary },
+                }}
+              />
+              <StyledContactTextField
+                label={formatMessage({ id: "contact.form.email" })}
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                sx={{ width: "50%" }}
+              />
+            </Box>
+            <Box
+              sx={{
+                mt: "20px",
+                display: "flex",
+                flexDirection: "column",
+                width: isMobile ? "90%" : "33%",
+                gap: "20px",
               }}
-            />
+            >
+              <StyledContactTextField
+                label={formatMessage({ id: "contact.form.subject" })}
+                name="subject"
+                onChange={handleChange}
+                value={values.subject}
+                InputLabelProps={{
+                  sx: { color: (theme) => theme.palette.text.secondary },
+                }}
+              />
 
-            <StyledContactTextField
-              label={formatMessage({ id: "contact.form.message" })}
-              name="message"
-              onChange={handleChange}
-              value={values.message}
-              multiline
-              autoComplete="off"
-              InputLabelProps={{
-                sx: { color: (theme) => theme.palette.text.secondary },
-              }}
-            />
-            <Collapse in={isValid}>
-              <Button
-                sx={{ width: "100%" }}
-                onClick={() => handleSubmit()}
-                disabled={isSubmitting}
-                variant={isSubmitting ? "text" : "contained"}
-              >
-                {isSubmitting ? <CircularProgress color="primary" /> : "Submit"}
-              </Button>
-            </Collapse>
-            <Collapse in={!!responseCode}>
-              {responseCode && (
-                <Alert severity={responseCode === 200 ? "info" : "error"}>
-                  {responseCode === 200
-                    ? "Email sent successfully"
-                    : "Email couldn't be sent, please try again later"}
-                </Alert>
-              )}
-            </Collapse>
-          </Box>
-        </StyledContactForm>
-      </StyledContactFormContainer>
-    </StyledContactPageContainer>
+              <StyledContactTextField
+                label={formatMessage({ id: "contact.form.message" })}
+                name="message"
+                onChange={handleChange}
+                value={values.message}
+                multiline
+                autoComplete="off"
+                InputLabelProps={{
+                  sx: { color: (theme) => theme.palette.text.secondary },
+                }}
+              />
+              <Collapse in={isValid}>
+                <Button
+                  sx={{ width: "100%" }}
+                  onClick={() => handleSubmit()}
+                  disabled={isSubmitting}
+                  variant={isSubmitting ? "text" : "contained"}
+                >
+                  {isSubmitting ? (
+                    <CircularProgress color="primary" />
+                  ) : (
+                    "Submit"
+                  )}
+                </Button>
+              </Collapse>
+              <Collapse in={!!responseCode}>
+                {responseCode && (
+                  <Alert severity={responseCode === 200 ? "info" : "error"}>
+                    {responseCode === 200
+                      ? "Email sent successfully"
+                      : "Email couldn't be sent, please try again later"}
+                  </Alert>
+                )}
+              </Collapse>
+            </Box>
+          </StyledContactForm>
+        </StyledContactFormContainer>
+      </StyledContactPageContainer>
+    </StyledAccentShard>
   );
 };
 
